@@ -435,6 +435,8 @@ function L:RegisterPlayerAura()
 end
 
 function L:RegisterEvents()
+    if GC.V2 == true then return end
+
     p:log(30, 'RegisterEvents called..')
     self:RegisterActionbarsEventFrame()
     self:RegisterKeybindingsEventFrame()

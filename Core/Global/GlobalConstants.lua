@@ -58,6 +58,8 @@ local function GlobalConstantProperties(o)
         }
     }
 
+    o.V2 = false
+
     --- @class GlobalAttributes
     local C = {
         ADDON_NAME = addon,
