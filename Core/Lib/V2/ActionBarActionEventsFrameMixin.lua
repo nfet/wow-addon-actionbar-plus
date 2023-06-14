@@ -42,7 +42,7 @@ end
 --- Pass event down to the buttons
 --- @param event string
 function L:OnEvent(event, ...)
-    p:log(0, 'OnEvent(%s): args=%s', event, ns.pformat({...}))
+    p:log(10, 'OnEvent(%s): args=%s', event, ns.pformat({...}))
 
     for k, frame in pairs(self.frames) do
         ABP_ActionButton:OnEvent(frame, event, ...);
