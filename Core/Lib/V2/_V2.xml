@@ -2,6 +2,6 @@
 ..\FrameXML\UI.xsd">
 
     <!--<Include file="ActionbarFrameBlizz.xml"/>-->
-    <Include file="ActionbarFrame.xml"/>
+    <Include file="ActionbarController.xml"/>
 
 </Ui>

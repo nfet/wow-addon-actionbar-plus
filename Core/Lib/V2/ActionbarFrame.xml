@@ -1,18 +1,33 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
-    <Script file="ActionButton.lua"/>
-    <Script file="ActionBar.lua"/>
+    <!--
+        SEE:
+            • Interface/FrameXML/SecureTemplates.xml
+            • Interface/FrameXML/ActionButtonTemplate.xml
+            • Interface/FrameXML/ActionButton.lua
+            • Interface/FrameXML/MultiActionBars.xml
+            • Interface/FrameXML/MultiActionBars.lua
+        -->
 
-    <CheckButton name="ABP_ActionBarButtonCodeTemplate"
-                 inherits="SecureActionButtonTemplate"
-                 mixin="ABP_ActionBarButtonCodeMixin" virtual="true">
+    <Script file="ActionBarButtonEventsFrameMixin.lua"/>
+    <Script file="ActionBarActionEventsFrameMixin.lua"/>
+    <Script file="ActionBar.lua"/>
+    <Script file="ActionButton.lua"/>
+
+    <CheckButton name="ABP_ActionBarButtonCodeTemplate" virtual="true"
+                 inherits="ActionButtonTemplate, SecureActionButtonTemplate">
+    </CheckButton>
+
+    <CheckButton name="ABP_ActionBarButtonTemplate" virtual="true"
+                 inherits="ABP_ActionBarButtonCodeTemplate"
+                 mixin="ABP_ActionBarButtonCodeMixin">
         <Scripts>
             <OnLoad method="OnLoad" inherit="append"/>
-            <OnClick method="OnClick" inherit="prepend"/>
             <OnEvent method="OnEvent"/>
+            <PostClick method="PostClick"/>
+            <PreClick method="PreClick"/>
             <!--<OnAttributeChanged method="OnAttributeChanged"/>
-            <PostClick method="UpdateState"/>
             <OnDragStart method="OnDragStart"/>
             <OnReceiveDrag method="OnReceiveDrag"/>
             <OnDragStop method="OnDragStop"/>
@@ -20,14 +35,10 @@
             <OnLeave method="OnLeave" inherit="append"/>
             <OnUpdate method="OnUpdate" inherit="append"/>-->
         </Scripts>
-    </CheckButton>
-    <CheckButton name="ABP_ActionBarButtonTemplateBase"
-                 inherits="ABP_ActionBarButtonCodeTemplate, ActionButtonTemplate" virtual="true">
-    </CheckButton>
-    <CheckButton name="ABP_ActionBarButtonTemplate" inherits="ABP_ActionBarButtonTemplateBase" virtual="true">
         <Layers>
-            <Layer level="BACKGROUND" textureSubLevel="-1">
-                <Texture name="$parentFloatingBG" file="Interface\Buttons\UI-Quickslot" alpha="0.4">
+            <Layer level="ARTWORK" textureSubLevel="-1">
+                <Texture name="$parentFloatingBG"
+                         file="Interface\Buttons\UI-Quickslot" alpha="0.4">
                     <Anchors>
                         <Anchor point="TOPLEFT" x="-15" y="15"/>
                         <Anchor point="BOTTOMRIGHT" x="15" y="-15"/>
@@ -35,43 +46,67 @@
                 </Texture>
             </Layer>
         </Layers>
+        <!--<Layers>
+            <Layer level="ARTWORK" textureSubLevel="-1">
+                <Texture name="$parentFloatingBG"
+                         file="interface\addons\actionbarplus\Core\Assets\Textures\ui-button-empty" alpha="0.2">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                        <Anchor point="BOTTOMRIGHT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture"
+                       file="interface\addons\actionbarplus\Core\Assets\Textures\ui-button-empty">
+            <Size>
+                <AbsDimension x="36" y="36"/>
+            </Size>
+            <Anchors>
+                <Anchor point="CENTER">
+                    <Offset>
+                        <AbsDimension x="0" y="0"/>
+                    </Offset>
+                </Anchor>
+            </Anchors>
+        </NormalTexture>-->
     </CheckButton>
 
-    <CheckButton name="ABP_ActionBar1ButtonTemplate" virtual="true"
-                 inherits="ABP_ActionBarButtonTemplate">
+    <CheckButton name="ABP_ActionBar1ButtonTemplate" virtual="true" inherits="ABP_ActionBarButtonTemplate">
     </CheckButton>
 
     <Frame name="ABP_ActionBarTemplate" toplevel="true" frameStrata="MEDIUM" virtual="true" hidden="true"
            mixin="ABP_ActionBarMixin">
         <Scripts>
             <OnLoad method="OnLoad" inherit="append"/>
+            <OnEvent method="OnEvent" inherit="append" />
         </Scripts>
         <Size x="500" y="38"/>
         <Attributes>
             <Attribute name="buttonSize" type="number" value="6"/>
         </Attributes>
         <Frames>
-            <CheckButton name="$parentButton1" inherits="ABP_ActionBar1ButtonTemplate" id="1001">
+            <CheckButton name="$parentButton1" parentKey="Button1" inherits="ABP_ActionBar1ButtonTemplate" id="1">
                 <Anchors>
                     <Anchor point="BOTTOMLEFT"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton name="$parentButton2" inherits="ABP_ActionBar1ButtonTemplate" id="1002">
+            <CheckButton name="$parentButton2" parentKey="Button2" inherits="ABP_ActionBar1ButtonTemplate" id="2">
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT" x="6" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton name="$parentButton3" inherits="ABP_ActionBar1ButtonTemplate" id="1003">
+            <CheckButton name="$parentButton3" parentKey="Button3" inherits="ABP_ActionBar1ButtonTemplate" id="3">
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT" x="6" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton name="$parentButton4" inherits="ABP_ActionBar1ButtonTemplate" id="1004">
+            <CheckButton name="$parentButton4" parentKey="Button4" inherits="ABP_ActionBar1ButtonTemplate" id="4">
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT" x="6" y="0"/>
                 </Anchors>
             </CheckButton>
-            <CheckButton name="$parentButton5" inherits="ABP_ActionBar1ButtonTemplate" id="1005">
+            <CheckButton name="$parentButton5" parentKey="Button5" inherits="ABP_ActionBar1ButtonTemplate" id="5">
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parentButton4" relativePoint="RIGHT" x="6" y="0"/>
                 </Anchors>
@@ -89,8 +124,13 @@
         </Anchors>
     </Frame>
 
-
-    <Frame name="ActionBarButtonEventsFrame" mixin="ABP_ActionBarButtonEventsFrameMixin">
+    <Frame name="ABP_ActionBarButtonEventsFrame" mixin="ABP_ActionBarButtonEventsFrameMixin">
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEvent method="OnEvent"/>
+        </Scripts>
+    </Frame>
+    <Frame name="ABP_ActionBarActionEventsFrame" mixin="ABP_ActionBarActionEventsFrameMixin">
         <Scripts>
             <OnLoad method="OnLoad"/>
             <OnEvent method="OnEvent"/>
