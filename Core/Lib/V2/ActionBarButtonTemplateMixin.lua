@@ -4,6 +4,7 @@ Local Vars
 --- @type Namespace
 local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
+local pformat = ns.pformat
 local p = O.Logger:NewLogger('ActionBarButtonCode')
 local ButtonEvents = ABP_ActionBarButtonEventsFrameMixin
 
@@ -22,7 +23,8 @@ Methods
 local function PropsAndMethods(o)
 
     function o:OnLoad()
-        p:log(0, 'OnLoad: %s', self:GetName())
+        p:log(10, 'OnLoad: %s buttonSize: %s', self:GetName(),
+                tostring(self:GetAttribute("buttonSize")))
 
         ButtonEvents:RegisterFrame(self)
 
@@ -38,12 +40,15 @@ local function PropsAndMethods(o)
         self:UpdateState(button, down)
     end
 
-
     ---@param button ButtonName
     ---@param down ButtonDown
     function o:PostClick(button, down)
         p:log(10, 'PostClick')
         self:UpdateState(button, down)
+    end
+
+    function o:OnDragStart(...)
+        p:log('OnDragStart: %s', pformat({...}))
     end
 
     ---@param button ButtonName

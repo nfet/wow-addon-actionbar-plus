@@ -12,11 +12,31 @@
 
     <Script file="ActionBarActionEventsFrameMixin.lua"/>
     <Script file="ActionBarButtonEventsFrameMixin.lua"/>
-    <Script file="ActionBarBuilderMixin.lua"/>
+
+    <Script file="ActionBarTemplateMixin.lua"/>
     <Script file="ActionBarButtonTemplateMixin.lua"/>
+    <Script file="ActionBarBuilderMixin.lua"/>
 
     <Script file="ActionBar.lua"/>
     <Script file="ActionButton.lua"/>
+
+    <Frame name="ABP_BaseActionBarFrame" toplevel="true"
+           parent="UIParent" frameStrata="MEDIUM" virtual="true"
+           hidden="true" enableMouse="true" movable="true" alpha="1.0"
+           inherits="BackdropTemplate">
+    </Frame>
+
+    <Frame name="ABP_ActionBarTemplate" virtual="true" toplevel="true"
+           inherits="ABP_BaseActionBarFrame"
+           mixin="ABP_ActionBarTemplateMixin">
+        <Attributes>
+            <Attribute name="frameLevel" type="number" value="1"/>
+        </Attributes>
+        <Scripts>
+            <OnLoad method="OnLoad" inherit="append"/>
+            <OnEvent method="OnEvent" inherit="append" />
+        </Scripts>
+    </Frame>
 
     <CheckButton name="ABP_BaseActionBarButton" virtual="true"
                  inherits="ActionButtonTemplate, SecureActionButtonTemplate">
@@ -26,14 +46,17 @@
     <CheckButton name="ABP_ActionBarButtonTemplate" virtual="true"
                  inherits="ABP_BaseActionBarButton"
                  mixin="ABP_ActionBarButtonTemplateMixin">
+        <Attributes>
+            <Attribute name="buttonSize" type="number" value="36"/>
+        </Attributes>
         <Scripts>
             <OnLoad method="OnLoad" inherit="append"/>
             <OnEvent method="OnEvent"/>
             <PostClick method="PostClick"/>
             <PreClick method="PreClick"/>
+            <OnDragStart method="OnDragStart"/>
             <!--
             <OnAttributeChanged method="OnAttributeChanged"/>
-            <OnDragStart method="OnDragStart"/>
             <OnReceiveDrag method="OnReceiveDrag"/>
             <OnDragStop method="OnDragStop"/>
             <OnEnter method="OnEnter" inherit="append"/>
@@ -86,23 +109,14 @@
     </CheckButton>
 
     <!-- TODO: Create ActionBar 1 to 9   -->
-    <Frame name="ABP_ActionBar" toplevel="true" frameStrata="MEDIUM" virtual="true" hidden="true"
-           parent="UIParent" enableMouse="true" movable="true" alpha="1.0"
-           mixin="ABP_ActionBarMixin" inherits="BackdropTemplate">
+    <Frame name="ABP_ActionBarFrameTemplate1" virtual="true"
+           inherits="ABP_ActionBarTemplate">
         <!--
         <KeyValues>
             <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_EDGE_32" type="global" />
         </KeyValues>
         -->
-
-        <Scripts>
-            <OnLoad method="OnLoad" inherit="append"/>
-            <OnEvent method="OnEvent" inherit="append" />
-        </Scripts>
         <Size x="276" y="100"/>
-        <Attributes>
-            <Attribute name="buttonSize" type="number" value="6"/>
-        </Attributes>
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="Background">
@@ -126,12 +140,8 @@
     </Frame>
 
     <!-- TODO: ABP_ActionBarTemplate is Temporary for POC -->
-    <Frame name="ABP_ActionBarTemplate" toplevel="true" frameStrata="MEDIUM" virtual="true" hidden="true"
-           mixin="ABP_ActionBarMixin">
-        <Scripts>
-            <OnLoad method="OnLoad" inherit="append"/>
-            <OnEvent method="OnEvent" inherit="append" />
-        </Scripts>
+    <Frame name="ABP_ActionBarTemplateTemp" virtual="true"
+           inherits="ABP_ActionBarTemplate">
         <Size x="500" y="38"/>
         <Attributes>
             <Attribute name="buttonSize" type="number" value="6"/>
@@ -166,7 +176,7 @@
     </Frame>
 
     <!-- TODO: ABP_ActionBar1 is temporary for POC -->
-    <Frame name="ABP_ActionBar1" inherits="ABP_ActionBarTemplate" parent="UIParent">
+    <Frame name="ABP_ActionBar1" inherits="ABP_ActionBarTemplateTemp" parent="UIParent">
         <Anchors>
             <Anchor point="CENTER" relativeTo="UIParent" relativePoint="TOP">
                 <Offset>

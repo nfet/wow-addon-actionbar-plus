@@ -19,7 +19,9 @@ local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 local pformat = ns.pformat
 local p = O.Logger:NewLogger('ActionBarBuilder')
+
 local CHECK_BUTTON_TEMPLATE = 'ABP_ActionBarButtonTemplate1'
+local ACTION_BAR_FRAME_TEMPLATE = 'ABP_ActionBarFrameTemplate1'
 
 --- @type table<number, string> array of frame names
 local actionBars = {}
@@ -93,6 +95,7 @@ local function PropsAndMethods(o)
     function o:CreateButtons(fw, rowSize, colSize)
         --fw:ClearButtons()
         local index = 0
+        local children = fw:GetChildren()
         for row=1, rowSize do
             for col=1, colSize do
                 index = index + 1
@@ -100,10 +103,9 @@ local function PropsAndMethods(o)
                 local btnUI = fw['Button' .. index]
                 if not btnUI then
                     btnUI = self:CreateSingleButton(fw, row, col, index)
-                    p:log(10, 'Creating button[%s]: %s size: %s', index, btnUI:GetName(),
-                            pformat({ btnUI:GetSize() }))
                 end
-                tinsert(fw:GetChildren(), btnUI)
+                tinsert(children, btnUI)
+                p:log(10, 'Button[%s]: id=%s', btnUI:GetName(), btnUI:GetID())
                 --fw:AddButtonFrame(btnUI)
             end
         end
@@ -121,7 +123,7 @@ local function PropsAndMethods(o)
         --local btnName = frameWidget:GetName() .. btnIndexName
         local btnName = sformat('$parent%s', btnIndexName)
         --- @type _CheckButton
-        local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE)
+        local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE, btnIndex)
         if btnWidget.SetParentKey then
             btnWidget:SetParentKey(btnIndexName)
         end
@@ -139,9 +141,9 @@ local function PropsAndMethods(o)
     function o:CreateFrame(frameIndex)
         local frameName = GC:GetFrameName(frameIndex)
         --- @type _Frame
-        local f = CreateFrame('Frame', frameName, nil, 'ABP_ActionBar')
-        p:log(10, '  • Created Frame[%s]: %s %s', frameIndex, frameName, f:GetName())
-
+        local f = CreateFrame('Frame', frameName, nil, ACTION_BAR_FRAME_TEMPLATE, frameIndex)
+        p:log(10, '  • Created Frame[%s]: frameIndex=%s id=%s',
+                f:GetName(), frameIndex, f:GetID())
         return f
     end
 
