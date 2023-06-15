@@ -19,6 +19,7 @@ local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 local pformat = ns.pformat
 local p = O.Logger:NewLogger('ActionBarBuilder')
+local CHECK_BUTTON_TEMPLATE = 'ABP_ActionBarButtonTemplate1'
 
 --- @type table<number, string> array of frame names
 local actionBars = {}
@@ -116,12 +117,11 @@ local function PropsAndMethods(o)
     --- @param btnIndex number The button index number
     --- @return ButtonUIWidget
     function o:CreateSingleButton(frameWidget, row, col, btnIndex)
-        local template = 'ABP_ActionBar1ButtonTemplate'
         local btnIndexName = sformat('Button%s', btnIndex)
         --local btnName = frameWidget:GetName() .. btnIndexName
         local btnName = sformat('$parent%s', btnIndexName)
         --- @type _CheckButton
-        local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, template)
+        local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE)
         if btnWidget.SetParentKey then
             btnWidget:SetParentKey(btnIndexName)
         end

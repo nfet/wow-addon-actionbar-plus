@@ -13,7 +13,7 @@ New Library
 --- @alias ActionBarButtonCode ActionBarControllerMixin | _CheckButton
 --- @class ActionBarButtonCodeMixin
 local L = {}
-ABP_ActionBarButtonCodeMixin = L
+ABP_ActionBarButtonTemplateMixin = L
 
 --[[-----------------------------------------------------------------------------
 Methods
@@ -22,7 +22,7 @@ Methods
 local function PropsAndMethods(o)
 
     function o:OnLoad()
-        p:log(10, 'OnLoad: %s', self:GetName())
+        p:log(0, 'OnLoad: %s', self:GetName())
 
         ButtonEvents:RegisterFrame(self)
 
