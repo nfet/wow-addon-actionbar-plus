@@ -12,9 +12,11 @@
 
     <Script file="ActionBarActionEventsFrameMixin.lua"/>
     <Script file="ActionBarButtonEventsFrameMixin.lua"/>
+    <Script file="ActionBarBuilderMixin.lua"/>
+    <Script file="ActionBarButtonCodeMixin.lua"/>
+
     <Script file="ActionBar.lua"/>
     <Script file="ActionButton.lua"/>
-    <Script file="ActionBarBuilderMixin.lua"/>
 
     <CheckButton name="ABP_ActionBarButtonCodeTemplate" virtual="true"
                  inherits="ActionButtonTemplate, SecureActionButtonTemplate">
