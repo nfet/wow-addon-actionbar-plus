@@ -190,6 +190,8 @@ local GlobalObjectsTemplate = {
 
     --- @type ActionBarController
     ActionBarController = {},
+    --- @type ActionBarBuilder
+    ActionBarBuilder = {},
 }
 L.M = M
 ns.M = M

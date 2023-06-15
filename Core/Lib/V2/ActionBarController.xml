@@ -4,8 +4,9 @@
     <Include file="ActionBarFrame.xml"/>
 
     <Script file="ActionBarController.lua"/>
+
     <Frame name="ABP_ActionBarController" parent="UIParent"
-           mixin="ABP_ActionBarControllerMixin">
+           mixin="ABP_ActionBarBuilderMixin, ABP_ActionBarControllerMixin">
         <Scripts>
             <OnLoad method="OnLoad"/>
             <OnEvent method="OnEvent"/>
