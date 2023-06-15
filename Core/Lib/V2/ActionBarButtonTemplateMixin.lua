@@ -5,21 +5,21 @@ Local Vars
 local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 local pformat = ns.pformat
-local p = O.Logger:NewLogger('ActionBarButtonCode')
+local p = O.Logger:NewLogger('ActionBarButtonTemplateMixin')
 local ButtonEvents = ABP_ActionBarButtonEventsFrameMixin
 
 --[[-----------------------------------------------------------------------------
 New Library
 -------------------------------------------------------------------------------]]
---- @alias ActionBarButtonCode ActionBarControllerMixin | _CheckButton
---- @class ActionBarButtonCodeMixin
+--- @alias ActionBarButtonTemplate ActionBarButtonTemplateMixin | _CheckButton
+--- @class ActionBarButtonTemplateMixin
 local L = {}
 ABP_ActionBarButtonTemplateMixin = L
 
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o ActionBarButtonCodeMixin | _CheckButton
+---@param o ActionBarButtonTemplateMixin | _CheckButton
 local function PropsAndMethods(o)
 
     function o:OnLoad()
