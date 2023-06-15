@@ -174,7 +174,9 @@ local function PropsAndMethods(o)
         local btnName = sformat('$parent%s', btnIndexName)
         --- @type _CheckButton
         local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, template)
-        btnWidget:SetParentKey(btnIndexName)
+        if btnWidget.SetParentKey then
+            btnWidget:SetParentKey(btnIndexName)
+        end
 
         --btnWidget:SetPoint('LEFT', sformat('$parentButton%s', btnIndex - 1),
         --'RIGHT', 6, 0)
