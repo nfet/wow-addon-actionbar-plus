@@ -75,6 +75,43 @@
     <CheckButton name="ABP_ActionBar1ButtonTemplate" virtual="true" inherits="ABP_ActionBarButtonTemplate">
     </CheckButton>
 
+    <Frame name="ABP_ActionBar" toplevel="true" frameStrata="MEDIUM" virtual="true" hidden="true"
+           enableMouse="true" movable="true" alpha="1.0"
+           inherits="BackdropTemplate" parent="UIParent" mixin="ABP_ActionBarMixin">
+        <!--<KeyValues>
+            <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_EDGE_32" type="global" />
+        </KeyValues>-->
+
+        <Scripts>
+            <OnLoad method="OnLoad" inherit="append"/>
+            <OnEvent method="OnEvent" inherit="append" />
+        </Scripts>
+        <Size x="276" y="100"/>
+        <Attributes>
+            <Attribute name="buttonSize" type="number" value="6"/>
+        </Attributes>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Background">
+                    <Color r="0.0" g="0.0" b="0.0" a="0.3"/>
+                    <Size>
+                        <AbsDimension x="276" y="100"/>
+                    </Size>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="-10" y="8"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <CheckButton name="$parentButton1" parentKey="Button1" inherits="ABP_ActionBar1ButtonTemplate" id="1">
+                <Anchors>
+                    <Anchor point="LEFT"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+    </Frame>
+
     <Frame name="ABP_ActionBarTemplate" toplevel="true" frameStrata="MEDIUM" virtual="true" hidden="true"
            mixin="ABP_ActionBarMixin">
         <Scripts>

@@ -76,7 +76,6 @@ function L:OnPlayerEnteringWorld(isLogin, isReload)
     b:SetPushedTexture(icon)
     b:GetNormalTexture():SetAllPoints(b)
     b:GetPushedTexture():SetAllPoints(b)
-
     --b:GetNormalTexture():SetDesaturated(true)
     --b:SetHighlightTexture(icon)
 end

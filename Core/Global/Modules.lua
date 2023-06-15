@@ -187,6 +187,9 @@ local GlobalObjectsTemplate = {
     Table = {},
     --- @type WidgetMixin
     WidgetMixin = {},
+
+    --- @type ActionBarController
+    ActionBarController = {},
 }
 L.M = M
 ns.M = M
