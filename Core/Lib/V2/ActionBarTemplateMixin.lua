@@ -35,6 +35,16 @@ local function PropsAndMethods(o)
         if not self:IsVisible() then self:Show() end
     end
 
+    function o:OnDragStart(...)
+        if not IsShiftKeyDown() then return end
+        p:log('OnDragStart[%s]: args=[%s]', self:GetName(), pformat({...}))
+        self:StartMoving()
+    end
+    function o:OnDragStop(...)
+        p:log('OnDragStop[%s]: args=[%s]', self:GetName(), pformat({...}))
+        self:StopMovingOrSizing()
+    end
+
     -- this doesn't get called for some reason
     function o:OnEvent()
         p:log(10, 'ActionBarMixin: OnEvent...')

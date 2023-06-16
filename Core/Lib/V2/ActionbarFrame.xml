@@ -35,6 +35,8 @@
         <Scripts>
             <OnLoad method="OnLoad" inherit="append"/>
             <OnEvent method="OnEvent" inherit="append" />
+            <OnDragStart method="OnDragStart"/>
+            <OnDragStop method="OnDragStop"/>
         </Scripts>
     </Frame>
 
@@ -56,9 +58,9 @@
             <PreClick method="PreClick"/>
             <OnDragStart method="OnDragStart"/>
             <!--
+            <OnDragStop method="OnDragStop"/>
             <OnAttributeChanged method="OnAttributeChanged"/>
             <OnReceiveDrag method="OnReceiveDrag"/>
-            <OnDragStop method="OnDragStop"/>
             <OnEnter method="OnEnter" inherit="append"/>
             <OnLeave method="OnLeave" inherit="append"/>
             <OnUpdate method="OnUpdate" inherit="append"/>
@@ -110,17 +112,15 @@
 
     <!-- TODO: Create ActionBar 1 to 9   -->
     <Frame name="ABP_ActionBarFrameTemplate1" virtual="true"
-           inherits="ABP_ActionBarTemplate">
-        <!--
+           inherits="ABP_ActionBarTemplate" enableMouse="true">
         <KeyValues>
             <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_EDGE_32" type="global" />
         </KeyValues>
-        -->
-        <Size x="276" y="100"/>
+        <Size x="288" y="112"/>
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture parentKey="Background">
-                    <Color r="0.0" g="0.0" b="0.0" a="0.3"/>
+                    <Color r="0.0" g="0.0" b="0.0" a="0.0"/>
                     <Size>
                         <AbsDimension x="276" y="100"/>
                     </Size>

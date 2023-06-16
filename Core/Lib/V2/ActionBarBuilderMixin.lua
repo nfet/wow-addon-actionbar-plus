@@ -64,7 +64,7 @@ local function PropsAndMethods(o)
             --- @type _Frame
             local f = self:CreateFrame(i)
             f:ClearAllPoints()
-            f:SetPoint('CENTER', nil, 'CENTER', 350, 250)
+            f:SetPoint('CENTER', nil, 'CENTER', 340, 250)
             f:Show()
             tinsert(actionBars, f:GetName())
             --local actionbarFrame = self:CreateFrame(i)
@@ -149,6 +149,8 @@ local function PropsAndMethods(o)
 
     --- @param f _Frame
     function o:LayoutButtonGrid(f)
+
+        local backDropPadding = f:GetBackdrop().edgeSize/2
         local horizontalButtonPadding = 8
         local verticalButtonPadding = 8
 
@@ -167,7 +169,7 @@ local function PropsAndMethods(o)
         --- Offset from the anchor point
         --- @param row number
         --- @param col number
-        function layout:GetCustomOffset(row, col) return 0, 0 end
+        function layout:GetCustomOffset(row, col) return backDropPadding, -(backDropPadding - 2) end
 
         --- @type _AnchorMixin
         local anchor = CreateAnchor("TOPLEFT", f:GetName(), "TOPLEFT", 0, -2);
