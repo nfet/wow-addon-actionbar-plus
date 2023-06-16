@@ -22,7 +22,8 @@
 
     <Frame name="ABP_BaseActionBarFrame" toplevel="true"
            parent="UIParent" frameStrata="MEDIUM" virtual="true"
-           hidden="true" enableMouse="true" movable="true" alpha="1.0"
+           hidden="true" enableMouse="true" movable="true"
+           resizable="true" alpha="1.0"
            inherits="BackdropTemplate">
     </Frame>
 
@@ -112,7 +113,7 @@
 
     <!-- TODO: Create ActionBar 1 to 9   -->
     <Frame name="ABP_ActionBarFrameTemplate1" virtual="true"
-           inherits="ABP_ActionBarTemplate" enableMouse="true">
+           inherits="ABP_ActionBarTemplate">
         <KeyValues>
             <KeyValue key="backdropInfo" value="BACKDROP_DIALOG_EDGE_32" type="global" />
         </KeyValues>

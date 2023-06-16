@@ -36,6 +36,10 @@ local function PropsAndMethods(o)
     end
 
     function o:OnDragStart(...)
+        if IsAltKeyDown() then
+            self:StartSizing('BOTTOMRIGHT')
+            return
+        end
         if not IsShiftKeyDown() then return end
         p:log('OnDragStart[%s]: args=[%s]', self:GetName(), pformat({...}))
         self:StartMoving()
