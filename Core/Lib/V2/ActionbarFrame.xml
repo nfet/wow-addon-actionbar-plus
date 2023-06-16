@@ -58,12 +58,13 @@
             <PostClick method="PostClick"/>
             <PreClick method="PreClick"/>
             <OnDragStart method="OnDragStart"/>
-            <!--
             <OnDragStop method="OnDragStop"/>
-            <OnAttributeChanged method="OnAttributeChanged"/>
-            <OnReceiveDrag method="OnReceiveDrag"/>
+            <OnMouseUp method="OnMouseUp" />
             <OnEnter method="OnEnter" inherit="append"/>
             <OnLeave method="OnLeave" inherit="append"/>
+            <!--
+            <OnAttributeChanged method="OnAttributeChanged"/>
+            <OnReceiveDrag method="OnReceiveDrag"/>
             <OnUpdate method="OnUpdate" inherit="append"/>
             -->
         </Scripts>
@@ -138,53 +139,6 @@
                 </Anchors>
             </CheckButton>
         </Frames>
-    </Frame>
-
-    <!-- TODO: ABP_ActionBarTemplate is Temporary for POC -->
-    <Frame name="ABP_ActionBarTemplateTemp" virtual="true"
-           inherits="ABP_ActionBarTemplate">
-        <Size x="500" y="38"/>
-        <Attributes>
-            <Attribute name="buttonSize" type="number" value="6"/>
-        </Attributes>
-        <Frames>
-            <CheckButton name="$parentButton1" parentKey="Button1" inherits="ABP_ActionBarButtonTemplate1" id="1">
-                <Anchors>
-                    <Anchor point="BOTTOMLEFT"/>
-                </Anchors>
-            </CheckButton>
-            <CheckButton name="$parentButton2" parentKey="Button2" inherits="ABP_ActionBarButtonTemplate1" id="2">
-                <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT" x="6" y="0"/>
-                </Anchors>
-            </CheckButton>
-            <CheckButton name="$parentButton3" parentKey="Button3" inherits="ABP_ActionBarButtonTemplate1" id="3">
-                <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT" x="6" y="0"/>
-                </Anchors>
-            </CheckButton>
-            <CheckButton name="$parentButton4" parentKey="Button4" inherits="ABP_ActionBarButtonTemplate1" id="4">
-                <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT" x="6" y="0"/>
-                </Anchors>
-            </CheckButton>
-            <CheckButton name="$parentButton5" parentKey="Button5" inherits="ABP_ActionBarButtonTemplate1" id="5">
-                <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parentButton4" relativePoint="RIGHT" x="6" y="0"/>
-                </Anchors>
-            </CheckButton>
-        </Frames>
-    </Frame>
-
-    <!-- TODO: ABP_ActionBar1 is temporary for POC -->
-    <Frame name="ABP_ActionBar1" inherits="ABP_ActionBarTemplateTemp" parent="UIParent">
-        <Anchors>
-            <Anchor point="CENTER" relativeTo="UIParent" relativePoint="TOP">
-                <Offset>
-                    <AbsDimension x="150" y="-100"/>
-                </Offset>
-            </Anchor>
-        </Anchors>
     </Frame>
 
     <Frame name="ABP_ActionBarButtonEventsFrame" mixin="ABP_ActionBarButtonEventsFrameMixin">

@@ -38,10 +38,28 @@ ns.O.ActionBarController = L
 --[[-----------------------------------------------------------------------------
 Support Functions
 -------------------------------------------------------------------------------]]
+local function SetupButtonOne()
+    local actionBar = ActionbarPlusF1
+    if not (actionBar or actionBar.Button1) then return end
+    --- @type _CheckButton
+    local b = actionBar.Button1
+    b:SetAttribute('type', 'spell')
+    local spell, _, icon = GetSpellInfo('Arcane Intellect')
+    p:log(10, 'spell: %s icon: %s', spell, tostring(icon))
+    b:SetAttribute('spell', spell)
+    b:SetNormalTexture(icon)
+    b:SetPushedTexture(icon)
+    b:GetNormalTexture():SetAllPoints(b)
+    b:GetPushedTexture():SetAllPoints(b)
+    --b:GetNormalTexture():SetDesaturated(true)
+    --b:SetHighlightTexture(icon)
+end
+
 local function InitActionBars()
     --- @type ActionBarController
     local c = ABP_ActionBarController
     c:Build()
+    SetupButtonOne()
 end
 
 --[[-----------------------------------------------------------------------------

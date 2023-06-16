@@ -35,17 +35,19 @@ local function PropsAndMethods(o)
         if not self:IsVisible() then self:Show() end
     end
 
+    -- TODO: Use frame:GetLeft(), GetRight() to get the width/height
+    --       SEE: https://wowwiki-archive.fandom.com/wiki/UI_coordinates
     function o:OnDragStart(...)
         if IsAltKeyDown() then
             self:StartSizing('BOTTOMRIGHT')
             return
         end
         if not IsShiftKeyDown() then return end
-        p:log('OnDragStart[%s]: args=[%s]', self:GetName(), pformat({...}))
+        --p:log('OnDragStart[%s]: args=[%s]', self:GetName(), pformat({...}))
         self:StartMoving()
     end
     function o:OnDragStop(...)
-        p:log('OnDragStop[%s]: args=[%s]', self:GetName(), pformat({...}))
+        --p:log('OnDragStop[%s]: args=[%s]', self:GetName(), pformat({...}))
         self:StopMovingOrSizing()
     end
 

@@ -28,7 +28,7 @@ function L:OnEvent(btn, event, ...)
     --p:log('OnEvent[%s::%s] Received with args=[%s]',
     --        frame:GetName(), event, ns.pformat({...}))
     if event == 'PLAYER_ENTERING_WORLD' then
-        return self:OnPlayerEnteringWorld(...)
+        return self:OnPlayerEnteringWorld(btn, ...)
     end
 end
 
@@ -61,24 +61,11 @@ end
 
 ---@param isLogin Boolean
 ---@param isReload Boolean
-function L:OnPlayerEnteringWorld(isLogin, isReload)
-    p:log(10, 'Is-Login=%s Is-Reload=%s [ActionBarButtonEventsFrameMixin::OnPlayerEnteringWorld]', isLogin, isReload)
-    local frames = ABP_ActionBarButtonEventsFrameMixin.frames
-    --p:log(0, 'Number of btns: %s', #frames)
-
-    --- @type _CheckButton
-    local b = frames[1]
-    b:SetAttribute('type', 'spell')
-    local spell, _, icon = GetSpellInfo('Arcane Intellect')
-    p:log(10, 'spell: %s icon: %s', spell, tostring(icon))
-    b:SetAttribute('spell', spell)
-    b:SetNormalTexture(icon)
-    b:SetPushedTexture(icon)
-    b:GetNormalTexture():SetAllPoints(b)
-    b:GetPushedTexture():SetAllPoints(b)
-    --b:GetNormalTexture():SetDesaturated(true)
-    --b:SetHighlightTexture(icon)
+function L:OnPlayerEnteringWorld(btn, isLogin, isReload)
+    p:log(10, '%s: Is-Login=%s Is-Reload=%s [OnPlayerEnteringWorld]',
+            btn:GetName(), isLogin, isReload)
 end
+
 
 
 --[[-----------------------------------------------------------------------------

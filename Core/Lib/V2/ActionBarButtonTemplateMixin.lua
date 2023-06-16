@@ -48,15 +48,35 @@ local function PropsAndMethods(o)
     end
 
     function o:OnDragStart(...)
-        p:log('OnDragStart: %s', pformat({...}))
+        p:log('OnDragStart[%s]: args=%s', self:GetName(), pformat({...}))
+    end
+
+    function o:OnDragStop(...)
+        p:log('OnDragStart[%s]: args=%s', self:GetName(), pformat({...}))
+    end
+
+    function o:OnEnter(...)
+        p:log(10, 'OnEnter[%s]: args=%s', self:GetName(), pformat({...}))
+        --self:RegisterForClicks("AnyUp")
+        GameTooltip:SetOwner(self, 'ANCHOR_TOPRIGHT')
+        GameTooltip:AddLine(self:GetName())
+        GameTooltip:Show()
+    end
+
+    function o:OnLeave(...)
+        p:log(10, 'OnLeave[%s]: args=%s', self:GetName(), pformat({...}))
+        --self:RegisterForClicks("AnyDown")
+        GameTooltip:Hide()
     end
 
     ---@param button ButtonName
     ---@param down ButtonDown
     function o:UpdateState(button, down)
-        C_Timer.After(0.1, function()
-            self:SetChecked(false)
-        end)
+
+    end
+
+    function o:OnMouseUp(frame, button)
+        self:SetChecked(false)
     end
 
     -- This doesn't get called
