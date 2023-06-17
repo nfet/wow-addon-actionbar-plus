@@ -192,6 +192,12 @@ local GlobalObjectsTemplate = {
     ActionBarController = {},
     --- @type ActionBarBuilder
     ActionBarBuilder = {},
+    --- @type ActionbarWidgetMixin
+    ActionbarWidgetMixin = {},
+    --- @type ActionButtonWidgetMixin
+    ActionButtonWidgetMixin = {},
+    --- @type ActionBarActionEventsFrame
+    ActionBarActionEventsFrame = {},
 }
 L.M = M
 ns.M = M

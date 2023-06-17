@@ -10,6 +10,8 @@
             • Interface/FrameXML/MultiActionBars.lua
         -->
 
+    <Script file="ActionBarWidgetMixin.lua"/>
+    <Script file="ActionButtonWidgetMixin.lua"/>
     <Script file="ActionBarActionEventsFrameMixin.lua"/>
     <Script file="ActionBarButtonEventsFrameMixin.lua"/>
 

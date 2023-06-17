@@ -32,35 +32,12 @@ New Library
 --- @alias ActionBarController ActionBarControllerMixin | ActionBarBuilder | _Frame
 --- @class ActionBarControllerMixin
 local L = {}
+--- #### See: ABP_ActionBarController.xml
 ABP_ActionBarControllerMixin = L
-ns.O.ActionBarController = L
 
 --[[-----------------------------------------------------------------------------
 Support Functions
 -------------------------------------------------------------------------------]]
-local function SetupButtonOne()
-    local actionBar = ActionbarPlusF1
-    if not (actionBar or actionBar.Button1) then return end
-    --- @type _CheckButton
-    local b = actionBar.Button1
-    b:SetAttribute('type', 'spell')
-    local spell, _, icon = GetSpellInfo('Arcane Intellect')
-    p:log(10, 'spell: %s icon: %s', spell, tostring(icon))
-    b:SetAttribute('spell', spell)
-    b:SetNormalTexture(icon)
-    b:SetPushedTexture(icon)
-    b:GetNormalTexture():SetAllPoints(b)
-    b:GetPushedTexture():SetAllPoints(b)
-    --b:GetNormalTexture():SetDesaturated(true)
-    --b:SetHighlightTexture(icon)
-end
-
-local function InitActionBars()
-    --- @type ActionBarController
-    local c = ABP_ActionBarController
-    c:Build()
-    SetupButtonOne()
-end
 
 --[[-----------------------------------------------------------------------------
 Methods
@@ -71,6 +48,8 @@ local function PropsAndMethods(o)
 
     function o:OnLoad()
         p:log(10, 'OnLoad: %s', self:GetName())
+        ns.O.ActionBarController = self
+
         --ManyBars
         self:RegisterEvent("PLAYER_ENTERING_WORLD");
 
@@ -110,26 +89,32 @@ local function PropsAndMethods(o)
     end
 
     function o:OnPlayerEnteringWord()
-        --self:UpdateAll()
+        self:UpdateAll()
     end
 
     --- #### SEE: Interface/FrameXML/ActionButton.lua#ActionButton_UpdateAction()
     ---@param force Boolean
     function o:UpdateAll(force)
+        p:log(0, 'UpdateAll...')
         -- If we have a skinned vehicle bar or skinned override bar, display the OverrideActionBar
-        local frames = ABP_ActionBarButtonEventsFrameMixin.frames
+        local frames = ABP_ActionBarActionEventsFrameMixin.frames
+        local frames = O.ActionBarActionEventsFrame.frames
+        p:log('UpdateAll()::ActionButton Count: %s', #frames)
         if not frames then return end
-        for k, frame in pairs(frames) do
-            ABP_ActionButton:Update(frame, force)
+        for k, actionButton in pairs(frames) do
+            p:log('ActionButton: Update()')
+            actionButton:Update(force)
         end
     end
 
 end; PropsAndMethods(L)
 
 --[[-----------------------------------------------------------------------------
-Register Message
+Register Message:
+• ActionBarController should be triggered by the 'OnAddOnReady' to guarntee that
+  the add-on & db has been initialized.
 -------------------------------------------------------------------------------]]
-AceEvent:RegisterMessage(GC.M.OnAddOnInitialized, function(msg)
+AceEvent:RegisterMessage(GC.M.OnAddOnReady, function(msg)
     p:log(10, 'MSG::R: %s', msg)
-    if IsEmptyTable(actionBars) then InitActionBars() end
+    if IsEmptyTable(actionBars) then ns.O.ActionBarController:Build() end
 end)

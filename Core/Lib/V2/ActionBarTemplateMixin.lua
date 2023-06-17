@@ -21,6 +21,12 @@ local function PropsAndMethods(o)
     function o:OnLoad()
         p:log(10, 'OnLoad: %s FrameLevel: %s', self:GetName(),
                 self:GetAttribute("frameLevel"))
+
+        --- @type ActionBarFrame
+        local actionbarFrame = self
+        --- @type ActionBarWidget
+        self.widget = CreateAndInitFromMixin(ns.O.ActionbarWidgetMixin, actionbarFrame)
+
         self:RegisterForDrag('LeftButton')
         --[[if f.SetBackdrop then
             local backdrop = {

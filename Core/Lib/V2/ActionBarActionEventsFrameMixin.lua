@@ -4,18 +4,21 @@ local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 
 local p = ns.O.Logger:NewLogger('ActionBarActionEventsFrameMixin')
 
---- @alias ActionBarActionEventsFrameMixin _ActionBarActionEventsFrameMixin|_Frame
---- @class _ActionBarActionEventsFrameMixin : _Frame_
+--- @alias ActionBarActionEventsFrame ActionBarActionEventsFrameMixin|_Frame
+--- @class ActionBarActionEventsFrameMixin : _Frame_
 local L = {}
---- @type table<number, _CheckButton>
+--- @type table<number, ActionButton>
 L.frames = {}
 
---- @type ActionBarActionEventsFrameMixin
+--- @type ActionBarActionEventsFrame
 ABP_ActionBarActionEventsFrameMixin = L
-ns.O.ActionBarActionEventsFrame = L
 
+-- The role of this class is to handle "Action Events" as a whole
+-- for all action bars.
+-- See Also ActionBarButtonEventsFrameMixin.lua
 function L:OnLoad()
     p:log(10, 'OnLoad...')
+    ns.O.ActionBarActionEventsFrame = self
 
     --self:RegisterEvent("ACTIONBAR_UPDATE_STATE");			not updating state from lua anymore, see SetActionUIButton
     self:RegisterEvent("ACTIONBAR_UPDATE_USABLE");
@@ -44,16 +47,21 @@ end
 function L:OnEvent(event, ...)
     p:log(10, 'OnEvent(%s): args=%s', event, ns.pformat({...}))
 
-    for k, frame in pairs(self.frames) do
-        ABP_ActionButton:OnEvent(frame, event, ...);
+    for k, actionButton in pairs(self.frames) do
+        p:log('Calling OnEvent[%s]', actionButton:GetName())
+        actionButton:OnEvent(event, ...);
     end
 end
 
----@param frame _CheckButton
+---@param frame ActionButton
 function L:RegisterFrame(frame)
     p:log(10, 'Frame Registered: %s', frame:GetName())
     self.frames[frame] = frame
+    frame.eventRegistered = true
 end
 
----@param frame _CheckButton
-function L:UnregisterFrame(frame) self.frames[frame] = nil end
+---@param frame ActionButton
+function L:UnregisterFrame(frame)
+    self.frames[frame] = nil
+    frame.eventRegistered = false
+end

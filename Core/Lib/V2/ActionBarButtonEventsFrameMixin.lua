@@ -12,16 +12,18 @@ local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 local p = ns.O.Logger:NewLogger('ActionBarButtonEventsFrameMixin')
 
---- @alias ActionBarButtonEventsFrameMixin _ActionBarButtonEventsFrameMixin|_Frame
---- @class _ActionBarButtonEventsFrameMixin : _Frame_
+--- @alias ActionBarButtonEventsFrame ActionBarButtonEventsFrameMixin|_Frame
+--- @class ActionBarButtonEventsFrameMixin : _Frame_
 local L = {}
---- @type table<number, _CheckButton>
-L.frames = {}
+--- type table<number, _CheckButton>
+---L.frames = {}
 
---- @type ActionBarButtonEventsFrameMixin
+--- @type ActionBarButtonEventsFrame
 ABP_ActionBarButtonEventsFrameMixin = L
 ns.O.ActionBarButtonEventsFrame = L
 
+-- The role of this Lua file is to handle individual button events
+-- See Also: ActionBarActionEventsFrameMixin.lua
 function L:OnLoad()
     p:log(10, 'OnLoad...')
 
@@ -36,6 +38,7 @@ function L:OnLoad()
     --self:RegisterEvent("UNIT_FLAGS");
     --self:RegisterEvent("UNIT_AURA");
     --self:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED");
+
 end
 
 --- Pass event down to the buttons
@@ -43,18 +46,18 @@ end
 function L:OnEvent(event, ...)
     p:log(10, 'OnEvent...')
 
-    for k, frame in pairs(self.frames) do
+    --[[for k, frame in pairs(self.frames) do
         ABP_ActionButton:OnEvent(frame, event, ...);
-    end
+    end]]
 end
-
+--[[
 ---@param frame table<number, _CheckButton>
 function L:RegisterFrame(frame) tinsert(self.frames, frame) end
 
 ---@param frame table<number, _CheckButton>
 function L:UnregisterFrame(frame)
     -- implement me if needed
-end
+end]]
 
 
 

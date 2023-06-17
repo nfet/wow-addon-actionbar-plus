@@ -38,7 +38,22 @@ ns.O.ActionBarBuilder = L
 --[[-----------------------------------------------------------------------------
 Support Functions
 -------------------------------------------------------------------------------]]
-
+local function SetupButtonOne()
+    local actionBar = ActionbarPlusF1
+    if not (actionBar and actionBar.Button1) then return end
+    --- @type ActionButton
+    local b = actionBar.Button1
+    b:SetAttribute('type', 'spell')
+    local spell, _, icon = GetSpellInfo('Arcane Intellect')
+    p:log(10, 'spell: %s icon: %s', tostring(spell), tostring(icon))
+    b:SetAttribute('spell', spell)
+    b:SetNormalTexture(icon)
+    b:SetPushedTexture(icon)
+    b:GetNormalTexture():SetAllPoints(b)
+    b:GetPushedTexture():SetAllPoints(b)
+    --b:GetNormalTexture():SetDesaturated(true)
+    --b:SetHighlightTexture(icon)
+end
 
 --[[-----------------------------------------------------------------------------
 Methods
@@ -54,6 +69,9 @@ local function PropsAndMethods(o)
             local f = self:CreateActionbarGroup(i, fn)
             --f:ShowGroupIfEnabled()
         end
+
+        -- todo: temporary
+        SetupButtonOne()
     end
 
     function o:CreateActionbarFrames()

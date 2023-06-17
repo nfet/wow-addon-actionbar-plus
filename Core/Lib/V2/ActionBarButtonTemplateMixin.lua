@@ -26,7 +26,11 @@ local function PropsAndMethods(o)
         p:log(10, 'OnLoad: %s buttonSize: %s', self:GetName(),
                 tostring(self:GetAttribute("buttonSize")))
 
-        ButtonEvents:RegisterFrame(self)
+        --- @type ActionButtonWidget
+        self.widget = CreateAndInitFromMixin(ns.O.ActionButtonWidgetMixin, self)
+
+        -- not sure if we need this
+        --ButtonEvents:RegisterFrame(self)
 
         -- cvar ActionButtonUseKeyDown set to 1
         self:RegisterForDrag("LeftButton", "RightButton")
