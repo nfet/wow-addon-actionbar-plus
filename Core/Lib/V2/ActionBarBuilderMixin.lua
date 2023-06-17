@@ -65,6 +65,8 @@ local function PropsAndMethods(o)
 
     function o:Build()
         local frameNames = L:CreateActionbarFrames()
+        tsort(actionBars)
+
         for i, fn in ipairs(frameNames) do
             local f = self:CreateActionbarGroup(i, fn)
             --f:ShowGroupIfEnabled()
@@ -75,21 +77,12 @@ local function PropsAndMethods(o)
     end
 
     function o:CreateActionbarFrames()
-        local frameNames = {}
-        --local frameCount = profile():GetActionbarFrameCount()
         local frameCount = 1
         for i=1, frameCount do
-            --- @type _Frame
-            local f = self:CreateFrame(i)
-            f:ClearAllPoints()
-            f:SetPoint('CENTER', nil, 'CENTER', 340, 250)
-            f:Show()
-            tinsert(actionBars, f:GetName())
-            --local actionbarFrame = self:CreateFrame(i)
-            --tinsert(frameNames, actionbarFrame:GetName())
+            -- ActionBarTemplateMixing#OnLoad() will be triggered after Creation
+            local actionBar = self:CreateFrame(i)
+            if not actionBar:IsVisible() then actionBar:Show() end
         end
-        tsort(actionBars)
-
         return actionBars
     end
 
@@ -155,13 +148,19 @@ local function PropsAndMethods(o)
     end
 
     --- @param frameIndex number
-    --- @return _Frame
+    --- @return ActionBarFrame
     function o:CreateFrame(frameIndex)
         local frameName = GC:GetFrameName(frameIndex)
-        --- @type _Frame
+        --- @type ActionBarFrame
         local f = CreateFrame('Frame', frameName, nil, ACTION_BAR_FRAME_TEMPLATE, frameIndex)
-        p:log(10, '  • Created Frame[%s]: frameIndex=%s id=%s',
-                f:GetName(), frameIndex, f:GetID())
+        f:ClearAllPoints()
+        f:SetPoint('CENTER', nil, 'CENTER', 340, 250)
+        f:RegisterForDrag('LeftButton')
+
+        CreateAndInitFromMixin(ns.O.ActionbarWidgetMixin, self)
+        f.frameIndex = frameIndex
+        tinsert(actionBars, f:GetName())
+
         return f
     end
 

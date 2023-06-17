@@ -32,7 +32,7 @@ New Library
 --- @alias ActionBarController ActionBarControllerMixin | ActionBarBuilder | _Frame
 --- @class ActionBarControllerMixin
 local L = {}
---- #### See: ABP_ActionBarController.xml
+--- #### See: ActionBarController.xml
 ABP_ActionBarControllerMixin = L
 
 --[[-----------------------------------------------------------------------------

@@ -17,7 +17,7 @@ New Library
 --- @class ActionbarWidgetMixin
 local L = {
     index = -1,
-    --- @type ActionBarFrame
+    --- @type fun():ActionBarFrame
     frame = nil,
 
     frameHandleHeight = 4,
@@ -44,9 +44,10 @@ local function PropsAndMethods(o)
     --- ```
     --- frameWidget = CreateAndInitFromMixin('ActionBarWidgetMixin', actionBarFrame)
     --- ```
+    ---@param actionBarFrame ActionBarFrame
     function o:Init(actionBarFrame)
-        self.frame = actionBarFrame
-        self.frame.widget = self
+        self.frame = function() return actionBarFrame end
+        self.frame().widget = function() return self end
     end
 
 

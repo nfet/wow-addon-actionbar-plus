@@ -114,6 +114,7 @@
         -->
     </CheckButton>
 
+    <!-- See: ActionBarControllerMixin#Build() -->
     <!-- TODO: Create ActionBar 1 to 9   -->
     <Frame name="ABP_ActionBarFrameTemplate1" virtual="true"
            inherits="ABP_ActionBarTemplate">

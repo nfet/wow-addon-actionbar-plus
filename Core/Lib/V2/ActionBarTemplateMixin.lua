@@ -21,24 +21,6 @@ local function PropsAndMethods(o)
     function o:OnLoad()
         p:log(10, 'OnLoad: %s FrameLevel: %s', self:GetName(),
                 self:GetAttribute("frameLevel"))
-
-        --- @type ActionBarFrame
-        local actionbarFrame = self
-        --- @type ActionBarWidget
-        self.widget = CreateAndInitFromMixin(ns.O.ActionbarWidgetMixin, actionbarFrame)
-
-        self:RegisterForDrag('LeftButton')
-        --[[if f.SetBackdrop then
-            local backdrop = {
-                bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile = true, tileSize = 16, edgeSize = 16,
-                insets = { left = 3, right = 3, top = 5, bottom = 3 },
-            }
-            f:SetBackdrop(backdrop)
-            f:ApplyBackdrop()
-        end]]
-        if not self:IsVisible() then self:Show() end
     end
 
     -- TODO: Use frame:GetLeft(), GetRight() to get the width/height

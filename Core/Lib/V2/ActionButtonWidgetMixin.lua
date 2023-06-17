@@ -17,10 +17,10 @@ local L = {
     index = -1,
     --- @type number
     frameIndex = -1,
-    --- @type ActionButton
+    --- @type fun():ActionButton
     button = nil,
     --- See: Interface/FrameXML/ActionButtonTemplate.xml
-    --- @type CooldownFrame
+    --- @type fun():CooldownFrame
     cooldown = nil,
 
     placement = { rowNum = -1, colNum = -1 },
@@ -34,9 +34,10 @@ local function PropsAndMethods(o)
 
     ---@param actionButton ActionButton
     function o:Init(actionButton)
-        self.button = actionButton
-        self.button.widget = self
-        self.cooldown = actionButton.cooldown
+        self.button = function() return actionButton end
+        self.button().widget = function() return self end
+        self.cooldown = function() return actionButton.cooldown end
+        self.frameIndex = self.button():GetParent().index
     end
 
 end; PropsAndMethods(L)

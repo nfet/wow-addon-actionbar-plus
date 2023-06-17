@@ -11,7 +11,7 @@ local ActionBarActionEventsFrame = ns.O.ActionBarActionEventsFrame
 --- #### See: Interface/FrameXML/ActionButtonTemplate.xml
 --- @class _ActionButton : __CheckButton
 local L = {
-    --- @type ActionBarWidget
+    --- @type fun():ActionBarWidget
     widget = nil,
     eventRegistered = false,
     --- @type CooldownFrame
@@ -35,8 +35,8 @@ local function PropsAndMethods(o)
     --- @param event string
     function o:OnEvent(event, ...)
         local arg1, arg2 = ...
-        --p:log('OnEvent[%s::%s] Received with args=[%s]',
-        --        frame:GetName(), event, ns.pformat({...}))
+        p:log(0, 'OnEvent[%s::%s] Received with args=[%s]',
+                self:GetName(), event, ns.pformat({...}))
         if event == 'PLAYER_ENTERING_WORLD' then
             return self:OnPlayerEnteringWorld(...)
         end
