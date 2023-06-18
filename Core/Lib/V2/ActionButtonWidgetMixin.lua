@@ -40,4 +40,9 @@ local function PropsAndMethods(o)
         self.frameIndex = self.button():GetParent().index
     end
 
+    function o:OnReceiveDragHandler(...)
+        p:log('OnReceiveDragHandler[%s]: args=%s cursor=%s',
+                self.button():GetName(), pformat({...}), pformat(O.API:GetCursorInfo()))
+    end
+
 end; PropsAndMethods(L)

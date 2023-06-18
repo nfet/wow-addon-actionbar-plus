@@ -13,7 +13,10 @@ New Library
 -------------------------------------------------------------------------------]]
 --- @alias ActionBarButtonTemplate ActionBarButtonTemplateMixin | _CheckButton
 --- @class ActionBarButtonTemplateMixin
-local L = {}
+local L = {
+    --- @type fun():ActionButtonWidget
+    widget = nil
+}
 ABP_ActionBarButtonTemplateMixin = L
 
 --[[-----------------------------------------------------------------------------
@@ -26,8 +29,7 @@ local function PropsAndMethods(o)
         p:log(10, 'OnLoad: %s buttonSize: %s', self:GetName(),
                 tostring(self:GetAttribute("buttonSize")))
 
-        --- @type ActionButtonWidget
-        self.widget = CreateAndInitFromMixin(ns.O.ActionButtonWidgetMixin, self)
+        CreateAndInitFromMixin(ns.O.ActionButtonWidgetMixin, self)
 
         -- not sure if we need this
         --ButtonEvents:RegisterFrame(self)
@@ -57,6 +59,10 @@ local function PropsAndMethods(o)
 
     function o:OnDragStop(...)
         p:log('OnDragStart[%s]: args=%s', self:GetName(), pformat({...}))
+    end
+
+    function o:OnReceiveDrag(...)
+        self.widget():OnReceiveDragHandler(...)
     end
 
     function o:OnEnter(...)

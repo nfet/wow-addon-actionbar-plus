@@ -64,9 +64,9 @@
             <OnMouseUp method="OnMouseUp" />
             <OnEnter method="OnEnter" inherit="append"/>
             <OnLeave method="OnLeave" inherit="append"/>
+            <OnReceiveDrag method="OnReceiveDrag"/>
             <!--
             <OnAttributeChanged method="OnAttributeChanged"/>
-            <OnReceiveDrag method="OnReceiveDrag"/>
             <OnUpdate method="OnUpdate" inherit="append"/>
             -->
         </Scripts>
