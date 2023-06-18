@@ -2,7 +2,7 @@
 Blizzard Vars
 -------------------------------------------------------------------------------]]
 local GetSpellSubtext, GetSpellInfo, GetSpellLink = GetSpellSubtext, GetSpellInfo, GetSpellLink
-local GetCursorInfo, GetSpellCooldown = GetCursorInfo, GetSpellCooldown
+local GetSpellCooldown, GetSpellCooldown
 local C_ToyBox, C_Container = C_ToyBox, C_Container
 local IsSpellInRange, GetItemSpell = IsSpellInRange, GetItemSpell
 local UnitIsDead, GetUnitName = UnitIsDead, GetUnitName
