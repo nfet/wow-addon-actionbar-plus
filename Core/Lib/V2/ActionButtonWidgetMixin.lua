@@ -29,6 +29,14 @@ local L = {
 }
 ns.O.ActionButtonWidgetMixin = L
 
+--[[-----------------------------------------------------------------------------
+Support Functions
+-------------------------------------------------------------------------------]]
+
+
+--[[-----------------------------------------------------------------------------
+Methods
+-------------------------------------------------------------------------------]]
 ---@param o ActionButtonWidgetMixin
 local function PropsAndMethods(o)
 
@@ -40,9 +48,34 @@ local function PropsAndMethods(o)
         self.frameIndex = self.button():GetParent().index
     end
 
-    function o:OnReceiveDragHandler(...)
-        p:log('OnReceiveDragHandler[%s]: args=%s cursor=%s',
-                self.button():GetName(), pformat({...}), pformat(O.API:GetCursorInfo()))
+    --- ### See: [UIHANDLER_OnReceiveDrag](https://wowpedia.fandom.com/wiki/UIHANDLER_OnReceiveDrag)
+    function o:OnReceiveDragHandler()
+        p:log(10, 'OnReceiveDragHandler[%s]: cursor=%s',
+                self.button():GetName(), pformat(O.API:GetCursorInfo()))
+        local cursor = ns:CreateCursorUtil()
+        if not cursor:IsValid() then
+            p:log(20, 'OnReceiveDrag| CursorInfo: %s isValid: false', pformat:B()(cursor:GetCursor()))
+            return false else
+        end
+
+        p:log(20, 'OnReceiveDrag| CursorInfo: %s', pformat:B()(cursor:GetCursor()))
+        --cursorUtil:ClearCursor()
+
+        self:HandleCursor(cursor)
+
+        --local hTexture = btnUI:GetHighlightTexture()
+        --if hTexture and not hTexture.mask then
+        --    print('creating mask')
+        --    hTexture.mask = CreateMask(btnUI, hTexture, GC.Textures.TEXTURE_EMPTY_GRID)
+        --end
+        --self.widget:Fire('OnReceiveDrag')
+    end
+
+    ---@param cursor CursorUtil
+    function o:HandleCursor(cursor)
+        --- @type ReceiveDragEventHandler
+        local handled = O.ReceiveDragEventHandler:HandleV2(self, cursor)
+        if handled then cursor:ClearCursor() end
     end
 
 end; PropsAndMethods(L)

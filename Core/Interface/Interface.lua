@@ -412,6 +412,4 @@ local M6Support_MacroHint = {
 --[[-----------------------------------------------------------------------------
 Aliases
 -------------------------------------------------------------------------------]]
-
 --- @alias LayoutStrategyFn fun(index:number, barConf:Profile_Bar, context:LayoutStrategyContext)
---- @alias ActionTypeName string | "'spell'" | "'item'" | "'macro'" | "'macrotext'" | "'companion'" | "'petaction'" | "'equipmentset'"

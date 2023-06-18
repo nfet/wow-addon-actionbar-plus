@@ -61,8 +61,8 @@ local function PropsAndMethods(o)
         p:log('OnDragStart[%s]: args=%s', self:GetName(), pformat({...}))
     end
 
-    function o:OnReceiveDrag(...)
-        self.widget():OnReceiveDragHandler(...)
+    function o:OnReceiveDrag()
+        self.widget():OnReceiveDragHandler()
     end
 
     function o:OnEnter(...)
