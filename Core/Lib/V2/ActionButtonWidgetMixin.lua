@@ -5,7 +5,7 @@ ActionButtonMixin: Similar to ButtonMixin.lua
 --- @type Namespace
 local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
-local p, pformat = O.Logger:NewLogger('ActionButtonMixin'), ns.pformat
+local p, pformat = O.Logger:NewLogger('ActionButtonWidgetMixin'), ns.pformat
 
 --[[-----------------------------------------------------------------------------
 New Instance
