@@ -16,7 +16,7 @@ ABP_ActionBarTemplateMixin = L
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o ActionBarTemplateMixin | _Frame
+---@param o ActionBarTemplateMixin | ActionBarFrame
 local function PropsAndMethods(o)
     function o:OnLoad()
         p:log(10, 'OnLoad: %s FrameLevel: %s', self:GetName(),
@@ -37,6 +37,7 @@ local function PropsAndMethods(o)
     function o:OnDragStop(...)
         --p:log('OnDragStop[%s]: args=[%s]', self:GetName(), pformat({...}))
         self:StopMovingOrSizing()
+        self.widget():UpdateAnchor()
     end
 
     -- this doesn't get called for some reason

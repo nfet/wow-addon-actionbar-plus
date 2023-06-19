@@ -81,6 +81,7 @@ local function PropsAndMethods(o)
         for i=1, frameCount do
             -- ActionBarTemplateMixing#OnLoad() will be triggered after Creation
             local actionBar = self:CreateFrame(i)
+            actionBar.widget():InitAnchor()
             if not actionBar:IsVisible() then actionBar:Show() end
         end
         return actionBars
@@ -172,7 +173,7 @@ local function PropsAndMethods(o)
         f:SetPoint('CENTER', nil, 'CENTER', 340, 250)
         f:RegisterForDrag('LeftButton')
 
-        CreateAndInitFromMixin(ns.O.ActionbarWidgetMixin, self)
+        CreateAndInitFromMixin(ns.O.ActionbarWidgetMixin, f, frameIndex)
         f.frameIndex = frameIndex
         tinsert(actionBars, f:GetName())
 
