@@ -6,21 +6,10 @@ local p = ns.O.Logger:NewLogger('ActionButton')
 --- @type ActionBarActionEventsFrameMixin
 local ActionBarActionEventsFrame = ns.O.ActionBarActionEventsFrame
 
---- @alias ActionButton _ActionButton | _CheckButton
-
---- #### See: Interface/FrameXML/ActionButtonTemplate.xml
---- @class _ActionButton : __CheckButton
-local L = {
-    --- @type fun():ActionBarWidget
-    widget = nil,
-    eventRegistered = false,
-    --- @type CooldownFrame
-    cooldown = nil,
-    --- @type _Texture
-    NormalTexture = nil,
-}
---- @type ActionButton
-ABP_ActionButton = L
+--- TODO NEXT: Not sure what the role of this object is
+--- @class ActionButtonUtil
+local L = {}
+ABP_ActionButtonUtil = L
 
 --[[-----------------------------------------------------------------------------
 Support Functions
@@ -29,7 +18,7 @@ Support Functions
 --[[-----------------------------------------------------------------------------
 Methods
 -------------------------------------------------------------------------------]]
----@param o _ActionButton | _CheckButton
+---@param o ActionButtonUtil
 local function PropsAndMethods(o)
 
     --- @param event string
@@ -49,10 +38,10 @@ local function PropsAndMethods(o)
         return actionbarFrame.frameIndex
     end
 
-    --- @return boolean
-    function o:HasAction()
-        return false
-    end
+    ----- @return boolean
+    --function o:HasAction()
+    --    return false
+    --end
 
     --- @return boolean
     function o:IsEventRegistered() return self.eventRegistered == true end

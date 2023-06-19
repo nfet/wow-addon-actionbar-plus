@@ -47,7 +47,7 @@ function L:OnEvent(event, ...)
     p:log(10, 'OnEvent...')
 
     --[[for k, frame in pairs(self.frames) do
-        ABP_ActionButton:OnEvent(frame, event, ...);
+        ABP_ActionButtonUtil:OnEvent(frame, event, ...);
     end]]
 end
 --[[

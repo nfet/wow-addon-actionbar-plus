@@ -6,6 +6,9 @@ ActionButtonMixin: Similar to ButtonMixin.lua
 local _, ns = ...
 local O, GC, M, LibStub = ns.O, ns.O.GlobalConstants, ns.M, ns.O.LibStub
 local p, pformat = O.Logger:NewLogger('ActionButtonWidgetMixin'), ns.pformat
+local String, Table, W = O.String, O.Table, GC.WidgetAttributes
+local IsEmptyTable = Table.IsEmpty
+local IsEmptyStr, IsBlankStr, IsNotBlankStr = String.IsEmpty, String.IsBlank, String.IsNotBlank
 
 --[[-----------------------------------------------------------------------------
 New Instance
@@ -29,6 +32,9 @@ local L = {
     placement = { rowNum = -1, colNum = -1 },
     --- @type number
     buttonPadding = 1,
+
+    --- @type boolean
+    eventRegistered = false,
 }
 ns.O.ActionButtonWidgetMixin = L
 
@@ -125,5 +131,50 @@ local function PropsAndMethods(o)
     --- @param name string
     --- @param value any
     function o:SetAttribute(name, value) self.button():SetAttribute(name, value) end
+
+    function o:SetButtonAttributes()
+        local conf = self:config(); if not conf then return end
+
+        if IsBlankStr(conf.type) then
+            conf.type = self:GuessButtonType(conf)
+            if IsBlankStr(conf.type) then return end
+        end
+        local setter = self:GetAttributesSetter(conf.type)
+        if not setter then return end
+        if setter.SetAttributesV2 then setter:SetAttributesV2(self) end
+    end
+
+    --- @return AttributeSetter
+    function o:GetAttributesSetter(actionType)
+        local type = actionType or self:config().type
+        return type and self:GetAllAttributesSetters()[type]
+    end
+
+
+    --- @return table<string, AttributeSetter>
+    function o:GetAllAttributesSetters()
+        --- @type table<string, AttributeSetter>
+        local AttributeSetters = {
+            [W.SPELL]       = O.SpellAttributeSetter,
+            [W.ITEM]        = O.ItemAttributeSetter,
+            [W.MACRO]       = O.MacroAttributeSetter,
+            [W.MOUNT]       = O.MountAttributeSetter,
+            [W.COMPANION]   = O.CompanionAttributeSetter,
+            [W.BATTLE_PET]   = O.BattlePetAttributeSetter,
+            [W.EQUIPMENT_SET] = O.EquipmentSetAttributeSetter,
+        }
+        return AttributeSetters
+    end
+
+    function o:IsEmpty()
+        local config = self:config(); if not config then return end
+        if IsEmptyTable(config) then return true end
+        local type = self.config().type
+        if IsBlankStr(type) then return true end
+        if IsEmptyTable(self.config()[type]) then return true end
+        return false
+    end
+    function o:HasAction() return false == self:IsEmpty() end
+
 
 end; PropsAndMethods(L)

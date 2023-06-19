@@ -136,6 +136,9 @@ local function PropsAndMethods(o)
         --- @type ActionBarButtonTemplate
         local checkButton = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE, btnIndex)
         if checkButton.SetParentKey then checkButton:SetParentKey(btnIndexName) end
+        checkButton.widget():SetButtonAttributes()
+
+
         -- todo: load button
         -- if not empty
         --checkButton:GetNormalTexture():SetAllPoints(checkButton)

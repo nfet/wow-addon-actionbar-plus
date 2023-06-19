@@ -30,7 +30,10 @@ local AttributeSetter = {
     ['OnAfterSetAttributes'] = function(self, btnUI) end,
     --- @param self AttributeSetter
     --- @param btnUI ButtonUI
-    ['ShowTooltip'] = function(self, btnUI) end
+    ['ShowTooltip'] = function(self, btnUI) end,
+    --- @param self AttributeSetter
+    --- @param btn ActionBarWidget
+    ['SetAttributesV2'] = function(self, btn) end,
 }
 
 --[[-----------------------------------------------------------------------------

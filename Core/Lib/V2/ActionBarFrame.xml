@@ -20,7 +20,7 @@
     <Script file="ActionBarBuilderMixin.lua"/>
 
     <Script file="ActionBar.lua"/>
-    <Script file="ActionButton.lua"/>
+    <Script file="ActionButtonUtil.lua"/>
 
     <Frame name="ABP_BaseActionBarFrame" toplevel="true"
            parent="UIParent" frameStrata="MEDIUM" virtual="true"

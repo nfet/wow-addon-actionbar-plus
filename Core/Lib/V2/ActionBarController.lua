@@ -95,15 +95,13 @@ local function PropsAndMethods(o)
     --- #### SEE: Interface/FrameXML/ActionButton.lua#ActionButton_UpdateAction()
     ---@param force Boolean
     function o:UpdateAll(force)
-        p:log(0, 'UpdateAll...')
-        -- If we have a skinned vehicle bar or skinned override bar, display the OverrideActionBar
-        local frames = ABP_ActionBarActionEventsFrameMixin.frames
         local frames = O.ActionBarActionEventsFrame.frames
-        p:log('UpdateAll()::ActionButton Count: %s', #frames)
+        p:log(0, 'UpdateAll()::ActionButton Count: %s', #frames)
+        -- If we have a skinned vehicle bar or skinned override bar, display the OverrideActionBar
         if not frames then return end
         for k, actionButton in pairs(frames) do
             p:log('ActionButton: Update()')
-            actionButton:Update(force)
+            --actionButton:Update(force)
         end
     end
 

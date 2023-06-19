@@ -24,7 +24,7 @@ local DragEventHandler = {
     --- @param cursorInfo CursorInfo
     ['Handle'] = function(self, btnUI, cursorInfo)  end,
     --- @param self DragEventHandler
-    --- @param btn ActionButton
+    --- @param btn ActionButtonWidget
     --- @param cursor CursorUtil
     ['HandleV2'] = function(self, btn, cursor)  end
 }
