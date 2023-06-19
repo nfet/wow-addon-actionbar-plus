@@ -23,6 +23,9 @@ local L = {
     --- @type fun():CooldownFrame
     cooldown = nil,
 
+    --- @type fun():Profile_Button
+    config = nil,
+
     placement = { rowNum = -1, colNum = -1 },
     --- @type number
     buttonPadding = 1,
@@ -32,7 +35,16 @@ ns.O.ActionButtonWidgetMixin = L
 --[[-----------------------------------------------------------------------------
 Support Functions
 -------------------------------------------------------------------------------]]
-
+--- Removes a particular actionType data from Profile_Button
+--- @param btnData Profile_Button
+local function CleanupActionTypeData(btnData)
+    local function removeElement(tbl, value)
+        for i, v in ipairs(tbl) do if v == value then tbl[i] = nil end end
+    end
+    if btnData == nil or btnData.type == nil then return end
+    local actionTypes = O.ActionType:GetOtherNamesExcept(btnData.type)
+    for _, v in ipairs(actionTypes) do if v ~= nil then btnData[v] = {} end end
+end
 
 --[[-----------------------------------------------------------------------------
 Methods
@@ -77,5 +89,41 @@ local function PropsAndMethods(o)
         local handled = O.ReceiveDragEventHandler:HandleV2(self, cursor)
         if handled then cursor:ClearCursor() end
     end
+
+    --- @return Profile_Button
+    function o:config()
+        local p = O.Profile:GetButtonData(self.frameIndex, self.button():GetName())
+        CleanupActionTypeData(p)
+        return p
+    end
+
+    --- @param type ActionTypeName One of: spell, item, or macro
+    function o:GetButtonTypeData(type) return self:config()[type] end
+    --- @return Profile_Spell
+    function o:GetSpellData() return self:GetButtonTypeData('spell') end
+
+    --- @return ButtonAttributes
+    function o:GetButtonAttributes() return GC.ButtonAttributes end
+    function o:ResetWidgetAttributes()
+        if InCombatLockdown() then return end
+        local button = self.button()
+        for _, v in pairs(self:GetButtonAttributes()) do
+            if not InCombatLockdown() then button:SetAttribute(v, nil) end
+        end
+    end
+
+    --- @param icon string Blizzard Icon
+    function o:SetIcon(icon)
+        if not icon then return end
+        local btn = self.button()
+        btn:SetNormalTexture(icon)
+        btn:SetPushedTexture(icon)
+        btn:GetNormalTexture():SetAllPoints(btn)
+    end
+
+    --- Sets an attribute on the frame.
+    --- @param name string
+    --- @param value any
+    function o:SetAttribute(name, value) self.button():SetAttribute(name, value) end
 
 end; PropsAndMethods(L)

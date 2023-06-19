@@ -133,18 +133,30 @@ local function PropsAndMethods(o)
         local btnIndexName = sformat('Button%s', btnIndex)
         --local btnName = frameWidget:GetName() .. btnIndexName
         local btnName = sformat('$parent%s', btnIndexName)
-        --- @type _CheckButton
-        local btnWidget = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE, btnIndex)
-        if btnWidget.SetParentKey then
-            btnWidget:SetParentKey(btnIndexName)
-        end
+        --- @type ActionBarButtonTemplate
+        local checkButton = CreateFrame('CheckButton', btnName, frameWidget, CHECK_BUTTON_TEMPLATE, btnIndex)
+        if checkButton.SetParentKey then checkButton:SetParentKey(btnIndexName) end
+        -- todo: load button
+        -- if not empty
+        --checkButton:GetNormalTexture():SetAllPoints(checkButton)
 
+        --checkButton:GetNormalTexture():SetAllPoints(checkButton.icon)
+
+        --checkButton:GetNormalTexture():Hide()
+        --checkButton:GetNormalTexture():SetSize(62, 62)
+        --local pushedTexture = checkButton:GetPushedTexture()
+
+        --checkButton:GetPushedTexture():SetAllPoints(checkButton)
+        --checkButton.icon:SetAllPoints(checkButton)
+        --checkButton.Background:SetAllPoints(checkButton)
+        --checkButton:GetCheckedTexture():SetAllPoints(checkButton)
+        --checkButton:GetHighlightTexture():SetAllPoints(checkButton)
         --btnWidget:SetPoint('LEFT', sformat('$parentButton%s', btnIndex - 1),
         --'RIGHT', 6, 0)
         --[[btnWidget:SetButtonAttributes()
         btnWidget:SetCallback("OnMacroChanged", OnMacroChanged)
         btnWidget:UpdateStateDelayed(0.05)]]
-        return btnWidget
+        return checkButton
     end
 
     --- @param frameIndex number

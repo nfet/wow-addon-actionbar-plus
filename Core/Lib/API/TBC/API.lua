@@ -59,6 +59,18 @@ function S:GetCursorInfo()
     return c
 end
 
+--- @param cursor CursorInfo
+--- @return CursorInfo_Spell
+function S:ToSpellCursorInfo(cursor)
+    -- actionType string spell, item, macro, mount, etc..
+    local actionType, info1, info2, info3 = GetCursorInfo()
+    if 'spell' ~= actionType then return nil end
+    --- @type CursorInfo_Spell
+    local c = { type = cursor.type, spellIndex = info1, bookType = info2,
+                spellID = cursor.info3 }
+    return c
+end
+
 --- @see Blizzard_UnitId
 function S:IsValidActionTarget() return self:HasTarget() and not UnitIsDead(UnitId.target) end
 function S:HasTarget() return GetUnitName(UnitId.target) ~= nil end

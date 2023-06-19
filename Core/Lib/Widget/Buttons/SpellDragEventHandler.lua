@@ -44,11 +44,23 @@ function L:Handle(btnUI, cursorInfo)
     SpellAttributeSetter(btnUI, btnData)
 end
 
+
+
 ---@param btn ActionButtonWidget
 ---@param cursor CursorUtil
 ---@return boolean returns true if the cursor was handled appropriately
 function L:HandleV2(btn, cursor)
-    p:log('HandleV2: btn=%s cursor=%s', btn.button():GetName(), pformat(cursor:GetCursor()))
+    local spellCursor = API:ToSpellCursorInfo(cursor:GetCursor())
+    p:log('HandleV2: btn=%s cursor=%s', btn.button():GetName(), pformat(spellCursor))
+    if IsPassiveSpell(spellCursor.spellID) then return false end
+
+    local type = spellCursor.type
+    local d = btn:config()
+    --PH:PickupExisting(btn)
+    d[WAttr.TYPE] = type
+    d[type] = API:GetSpellInfo(spellCursor.spellID)
+
+    SpellAttributeSetter:SetAttributesV2(btn)
 
     return true
 end
